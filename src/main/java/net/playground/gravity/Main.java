@@ -105,8 +105,8 @@ public class Main extends Application {
 
         try {
             URI uri = this.getClass().getClassLoader().getResource("config").toURI();
-            Files.newDirectoryStream(Paths.get(uri), path -> path.toString().split("/")[11].endsWith(".yml")).forEach(System.out::println);
-            //            Files.list(Paths.get(uri)).filter(Files::isRegularFile).forEach(System.out::println);
+//            Files.newDirectoryStream(Paths.get(uri), path -> path.toString().split("/")[11].endsWith(".yml")).forEach(System.out::println);
+                        Files.list(Paths.get(uri)).filter(Files::isRegularFile).forEach(System.out::println);
         } catch (IOException | URISyntaxException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
