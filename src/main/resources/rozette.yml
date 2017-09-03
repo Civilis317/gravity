@@ -1,0 +1,58 @@
+scale: 2.0e6
+---
+planet: 
+  id: 1
+  name: 'Earth'
+  color: 'purple'
+  radius: 6.371e6
+  mass: 5.972e24
+  position:
+    angle: 0
+    value: 3.844e8
+  velocity:
+    angle: 90
+    value: 1.022e3
+  debug: false
+---
+planet: 
+  id: 2
+  name: 'Earth'
+  color: 'green'
+  radius: 6.371e6
+  mass: 5.972e24
+  position:
+    angle: 90
+    value: 3.844e8
+  velocity:
+    angle: 180
+    value: 1.022e3
+  debug: false
+---
+planet: 
+  id: 3
+  name: 'Earth'
+  color: 'blue'
+  radius: 6.371e6
+  mass: 5.972e24
+  position:
+    angle: 180
+    value: 3.844e8
+  velocity:
+    angle: 270
+    value: 1.022e3
+  debug: false
+---
+planet: 
+  id: 4
+  name: 'Earth'
+  color: 'red'
+  radius: 6.371e6
+  mass: 5.972e24
+  position:
+    angle: 270
+    value: 3.844e8
+  velocity:
+    angle: 0
+    value: 1.022e3
+  debug: false
+  

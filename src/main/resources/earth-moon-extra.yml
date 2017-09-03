@@ -1,0 +1,58 @@
+scale: 1.0e6
+---
+planet: 
+  id: 1
+  name: 'Earth'
+  color: 'blue'
+  radius: 6.371e6
+  mass: 5.972e24
+  position:
+    angle: 0
+    value: 0
+  velocity:
+    angle: 0
+    value: 0
+  debug: false
+---
+planet: 
+  id: 2
+  name: 'Luna'
+  color: 'red'
+  radius: 1.737e6
+  mass: 7.346e22
+  position:
+    angle: 90
+    value: 3.844e8
+  velocity:
+    angle: 180
+    value: 1.022e3
+  debug: false
+---
+planet: 
+  id: 3
+  name: 'Luna2'
+  color: 'purple'
+  radius: 1e6
+  mass: 1000
+  position:
+    angle: 90
+    value: 3.9e8
+  velocity:
+    angle: 180
+    value: 100
+  debug: false
+---
+planet: 
+  id: 4
+  name: 'Apollo'
+  color: 'black'
+  radius: 1e6
+  mass: 1000
+  position:
+    angle: 90
+    value: 3.91e8
+  velocity:
+    angle: 45
+    value: 1250
+  debug: false
+  

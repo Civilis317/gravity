@@ -1,0 +1,72 @@
+scale: 0.6e9
+---
+planet: 
+  id: 1
+  name: 'Sol'
+  color: 'orange'
+  radius: 0.6957e9
+  mass: 1.989e30
+  position:
+    angle: 0
+    value: 0
+  velocity:
+    angle: 0
+    value: 0
+  debug: false
+---
+planet: 
+  id: 2
+  name: 'Mercury'
+  color: 'yellow'
+  radius: 2.44e6
+  mass: 3.285e23
+  position:
+    angle: 0
+    value: 5.791e10
+  velocity:
+    angle: 90
+    value: 4.8e4
+  debug: false
+---
+planet: 
+  id: 3
+  name: 'Venus'
+  color: 'black'
+  radius: 6.0521e6
+  mass: 4.8675e24
+  position:
+    angle: 0
+    value: 1.08e11
+  velocity:
+    angle: 90
+    value: 3.5e4
+  debug: false
+---
+planet: 
+  id: 4
+  name: 'Earth'
+  color: 'blue'
+  radius: 6.371e6
+  mass: 5.972e24
+  position:
+    angle: 0
+    value: 1.496e11
+  velocity:
+    angle: 90
+    value: 3e4
+  debug: false
+---
+planet: 
+  id: 5
+  name: 'Mars'
+  color: 'red'
+  radius: 3.39e6
+  mass: 6.39e23
+  position:
+    angle: 0
+    value: 2.279e11
+  velocity:
+    angle: 90
+    value: 2.4e4
+  debug: false
+  
