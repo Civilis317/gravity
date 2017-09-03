@@ -1,4 +1,6 @@
-scale: .8e6
+scale: 1e6
+---
+speedupFactor: 4500
 ---
 planet: 
   id: 1

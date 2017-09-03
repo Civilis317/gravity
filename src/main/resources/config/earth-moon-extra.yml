@@ -1,4 +1,6 @@
-scale: 2.0e6
+scale: 1.0e6
+---
+speedupFactor: 4500
 ---
 planet: 
   id: 1
@@ -30,43 +32,29 @@ planet:
 ---
 planet: 
   id: 3
-  name: 'Ceres'
-  color: 'green'
-  radius: 2e6
-  mass: 7.346e23
+  name: 'Luna2'
+  color: 'purple'
+  radius: 1e6
+  mass: 1000
   position:
-    angle: 315
-    value: 4e8
+    angle: 90
+    value: 3.9e8
   velocity:
     angle: 180
-    value: 1e3
+    value: 100
   debug: false
 ---
 planet: 
   id: 4
-  name: 'Phobos'
+  name: 'Apollo'
   color: 'black'
   radius: 1e6
-  mass: 7.346e8
+  mass: 1000
   position:
-    angle: 135
-    value: 4e8
+    angle: 90
+    value: 3.91e8
   velocity:
-    angle: 0
-    value: .3e3
-  debug: false
----
-planet: 
-  id: 5
-  name: 'Dikzak'
-  color: 'purple'
-  radius: 3e6
-  mass: 7.346e23
-  position:
-    angle: 110
-    value: 3.2e8
-  velocity:
-    angle: 345
-    value: 1e3
+    angle: 45
+    value: 1250
   debug: false
   

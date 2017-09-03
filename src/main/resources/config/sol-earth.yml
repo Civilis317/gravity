@@ -1,5 +1,7 @@
 scale: 0.6e9
 ---
+speedupFactor: 4500
+---
 planet: 
   id: 1
   name: 'Sol'

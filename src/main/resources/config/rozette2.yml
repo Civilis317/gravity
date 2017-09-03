@@ -1,5 +1,7 @@
 scale: 1.5e6
 ---
+speedupFactor: 4500
+---
 planet: 
   id: 1
   name: 'Earth'

@@ -1,6 +1,6 @@
 scale: 3.0e6
 ---
-radiusBlowupFactor: 10
+speedupFactor: 450
 ---
 planet: 
   id: 1

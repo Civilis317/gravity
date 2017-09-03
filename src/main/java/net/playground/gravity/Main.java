@@ -8,6 +8,7 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import com.esotericsoftware.yamlbeans.YamlReader;
@@ -22,8 +23,8 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -35,15 +36,14 @@ public class Main extends Application {
     private ArrayList<Planet> planetList = new ArrayList<>();
 
     private double SCALE;
+    private int SPEEDUP_FACTOR = 1;
     private final double WIDTH = 1400;
     private final double HEIGHT = 900;
-
-    private static String ymlConfig;
 
     private GraphicsContext g2d;
 
     private String getConfig(String configName) throws IOException {
-        InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(configName);
+        InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("config/" + configName);
         ByteArrayOutputStream result = new ByteArrayOutputStream();
         byte[] buffer = new byte[1024];
         int length;
@@ -62,9 +62,10 @@ public class Main extends Application {
             if (map == null) {
                 break;
             }
-            System.out.println(map.toString());
             if (map.get("scale") != null) {
                 setScale(map);
+            } else if (map.get("speedupFactor") != null) {
+                setSpeedupFactor(map);
             } else if (map.get("planet") != null) {
                 addPlanet(map);
             }
@@ -74,6 +75,11 @@ public class Main extends Application {
     @SuppressWarnings("rawtypes")
     private void setScale(Map scaleMap) {
         this.SCALE = Double.valueOf((String) scaleMap.get("scale")).doubleValue();
+    }
+
+    @SuppressWarnings({ "rawtypes" })
+    private void setSpeedupFactor(Map map) {
+        this.SPEEDUP_FACTOR = Integer.valueOf((String) map.get("speedupFactor")).intValue();
     }
 
     @SuppressWarnings("rawtypes")
@@ -95,45 +101,45 @@ public class Main extends Application {
         planetList.add(planet);
     }
 
-    private void setup() throws IOException {
+    private void setup(String ymlConfig) throws IOException {
         String config = getConfig(ymlConfig);
         parseYML(config);
     }
 
-    private void getConfigList() {
-        //        String path = url.getPath();
-
+    private List<String> getConfigList() {
+        List<String> returnList = new ArrayList<>();
         try {
             URI uri = this.getClass().getClassLoader().getResource("config").toURI();
-//            Files.newDirectoryStream(Paths.get(uri), path -> path.toString().split("/")[11].endsWith(".yml")).forEach(System.out::println);
-                        Files.list(Paths.get(uri)).filter(Files::isRegularFile).forEach(System.out::println);
+            Files.newDirectoryStream(Paths.get(uri), path -> path.toString().endsWith(".yml")).forEach(p -> returnList.add(p.getName(p.getNameCount() - 1).toString()));
         } catch (IOException | URISyntaxException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        return returnList;
     }
 
-    private Parent createStartupView(Stage stage) {
+    private Parent createStartupView(Stage stage, List<String> configList) {
         BorderPane root = new BorderPane();
         root.setPrefSize(400, 300);
 
         VBox vbCenter = new VBox();
-        TextField ymlChoice = new TextField();
-        vbCenter.getChildren().add(ymlChoice);
 
-        Label label = new Label("...");
+        Label label = new Label("Choose a configuration:");
         vbCenter.getChildren().add(label);
+
+        ComboBox<String> configBox = new ComboBox<>();
+        configBox.getItems().addAll(configList);
+        configBox.setValue(configBox.getItems().get(0));
+        vbCenter.getChildren().add(configBox);
 
         HBox buttonContainer = new HBox();
         Button button = new Button("Ok");
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                label.setText(ymlChoice.getText());
 
                 // change scene:
                 stage.close();
-                stage.getScene().setRoot(createContent());
+                stage.getScene().setRoot(createContent(configBox.getValue()));
                 stage.show();
             }
         });
@@ -145,7 +151,14 @@ public class Main extends Application {
         return root;
     }
 
-    private Parent createContent() {
+    private Parent createContent(String configYml) {
+
+        try {
+            setup(configYml);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         Pane root = new Pane();
         root.setPrefSize(WIDTH, HEIGHT);
         Canvas canvas = new Canvas(WIDTH, HEIGHT);
@@ -156,8 +169,7 @@ public class Main extends Application {
             public void handle(long now) {
                 int n = 0;
                 int m = 0;
-                while (n < 450) {
-                    //                while (n < 45000) {
+                while (n < SPEEDUP_FACTOR) {
                     planetList.forEach(p -> p.processGravity(planetList));
 
                     // plot only every minute
@@ -212,31 +224,15 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        if (args == null || args.length == 0) {
-            ymlConfig = "earth-moon.yml";
-        } else {
-            ymlConfig = args[0];
-        }
         launch(args);
     }
 
     @Override
     public void start(Stage stage) throws Exception {
-        // init planet list:
-        setup();
-
-        getConfigList();
-
-        //        // setup scene:
+        // setup scene:
         stage.setTitle("Gravity Simulator");
-        stage.setScene(new Scene(createStartupView(stage)));
+        stage.setScene(new Scene(createStartupView(stage, getConfigList())));
         stage.show();
-
-        //        // setup scene:
-        //        stage.setTitle("Gravity Simulator");
-        //        stage.setScene(new Scene(createContent()));
-        //        //        stage.setFullScreen(true);
-        //        stage.show();
     }
 
 }
